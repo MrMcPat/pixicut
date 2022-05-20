@@ -1,7 +1,7 @@
 import { usersActions } from "./users-slice";
 import axios from "axios";
 
-let endpoints = ["/users", "/drawings", "/comments", "follows"];
+let endpoints = ["/users", "/drawings", "/comments", "/follows"];
 
 export function fetchUsersData() {
   return async function (dispatch) {
