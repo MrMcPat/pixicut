@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :follows
+  resources :comments
+  resources :frames
+  resources :drawings
   resources :users
   get '/hello', to: 'application#hello_world'
 

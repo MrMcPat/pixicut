@@ -7,12 +7,15 @@ export function fetchSelfData() {
       const response = await axios.get("/me");
       return response;
     }
-
-    const selfData = await fetchMeData();
-    dispatch(
-      selfActions.getSelf({
-        me: selfData.data,
-      })
-    );
+    try {
+      const selfData = await fetchMeData();
+      dispatch(
+        selfActions.getSelf({
+          me: selfData.data,
+        })
+      );
+    } catch (error) {
+      // console.log(error)
+    }
   };
 }
