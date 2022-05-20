@@ -2,14 +2,17 @@ import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { selfActions } from "../store/self-slice";
 
-function NavBar({ user, setUser }) {
+function NavBar({ self }) {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function handleLogoutClick() {
     fetch("/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
-        setUser(null);
+        dispatch(selfActions.getSelf({ me: null }));
         navigate("/");
       }
     });
@@ -23,7 +26,7 @@ function NavBar({ user, setUser }) {
             <NavLink to="/">Pixicut</NavLink>
           </div>
           <div>
-            {user ? (
+            {self ? (
               <button onClick={handleLogoutClick}>Logout</button>
             ) : (
               <>

@@ -1,28 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchSelfData } from "../store/self-actions";
+import { fetchUsersData } from "../store/users-actions";
 import NavBar from "./NavBar";
 import Homepage from "./Homepage";
 import Login from "./authentication/Login";
 import Signup from "./authentication/Signup";
 
 function App() {
-  const [user, setUser] = useState("");
+  const dispatch = useDispatch();
+  const self = useSelector((state) => state.self.me);
+  const users = useSelector((state) => state.users.users);
 
   useEffect(() => {
-    fetch("/me").then((r) => {
-      if (r.ok) {
-        r.json().then((user) => setUser(user));
-      }
-    });
-  }, []);
+    dispatch(fetchSelfData());
+    dispatch(fetchUsersData());
+  }, [dispatch]);
 
   return (
     <div>
-      <NavBar user={user} setUser={setUser} />
+      <NavBar self={self} />
       <Routes>
-        <Route exact path="/" element={<Homepage />} />
-        <Route path="/login" element={<Login setUser={setUser} />} />
-        <Route path="/signup" element={<Signup setUser={setUser} />} />
+        <Route path="/" element={<Homepage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
   );
