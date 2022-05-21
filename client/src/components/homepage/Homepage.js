@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUsersData } from "../store/users-actions";
+import { fetchUsersData } from "../../store/users-actions";
 
 function Homepage({ self }) {
   const dispatch = useDispatch();
@@ -11,8 +11,6 @@ function Homepage({ self }) {
       dispatch(fetchUsersData());
     }
   }, [dispatch]);
-
-  console.log(users);
 
   return <div>Homepage</div>;
 }

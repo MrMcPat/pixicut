@@ -3,7 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { selfActions } from "../store/self-slice";
+import { selfActions } from "../../store/self-slice";
 
 function NavBar({ self }) {
   let navigate = useNavigate();
@@ -27,7 +27,10 @@ function NavBar({ self }) {
           </div>
           <div>
             {self ? (
-              <button onClick={handleLogoutClick}>Logout</button>
+              <>
+                <NavLink to="/canvas">Create Pixel Art</NavLink>
+                <button onClick={handleLogoutClick}>Logout</button>
+              </>
             ) : (
               <>
                 <NavLink to="/login">Login</NavLink>
