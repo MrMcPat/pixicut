@@ -1,5 +1,5 @@
 .tile {
-  border: 1px solid black;
+  border: 0.5px solid grey;
   width: 20px;
   height: 20px;
 }

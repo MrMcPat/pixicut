@@ -1,4 +1,7 @@
 .eightbyeight-container {
   display: grid;
+  width: 160px;
+  height: 160px;
+  grid-row-gap: 0;
   grid-template-columns: auto auto auto auto auto auto auto auto;
 }
