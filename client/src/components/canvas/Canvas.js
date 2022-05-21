@@ -4,6 +4,7 @@ import Tile from "./Tile";
 
 function Canvas() {
   const [tiles, setTiles] = useState([]);
+  const [isMouseDown, setIsMouseDown] = useState(false);
 
   useEffect(() => {
     let array = [];
@@ -13,13 +14,18 @@ function Canvas() {
     setTiles(array);
   }, []);
 
-  console.log(tiles);
+  const handleMouseDown = () => setIsMouseDown(true);
+  const handleMouseUp = () => setIsMouseDown(false);
 
   return (
     <div>
-      <div className="eightbyeight-container">
+      <div
+        className="eightbyeight-container"
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+      >
         {tiles.map((tile) => (
-          <Tile key={tile} />
+          <Tile key={tile} isMouseDown={isMouseDown} />
         ))}
       </div>
     </div>
