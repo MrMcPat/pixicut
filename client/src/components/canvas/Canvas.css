@@ -1,5 +1,7 @@
 .eightbyeight-container {
   display: grid;
+  padding-right: 7px;
+  padding-bottom: 7px;
   width: 160px;
   height: 160px;
   grid-row-gap: 0;
@@ -9,7 +11,9 @@
 .sixteenbysixteen-container {
   display: grid;
   width: 320px;
-  height: 160px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  height: 320px;
   grid-row-gap: 0;
   grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
 }

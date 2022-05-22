@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Tile.css";
 
 function Tile({ isMouseDown, color }) {
-  const [background, setBackground] = useState("");
+  const [background, setBackground] = useState("#ffffff");
 
   const handleMouseMove = () => isMouseDown && setBackground(color);
   const handleClick = () => setBackground(color);

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import "./Canvas.css";
 import CanvasInputs from "./CanvasInputs";
 import Grid from "./Grid";
+import { useScreenshot, createFileName } from "use-react-screenshot";
 
 function Canvas() {
   const [name, setName] = useState("");
@@ -11,8 +12,8 @@ function Canvas() {
   const [tiles, setTiles] = useState([]);
   const [dimensions, setDimensions] = useState("eightbyeight-container");
   const [isMouseDown, setIsMouseDown] = useState(false);
-
-  console.log(color);
+  const ref = createRef(null);
+  const [image, takeScreenShot] = useScreenshot();
 
   useEffect(() => {
     let array = [];
@@ -30,6 +31,19 @@ function Canvas() {
   const handleMouseDown = () => setIsMouseDown(true);
   const handleMouseUp = () => setIsMouseDown(false);
 
+  const handleErase = () => setColor("#ffffff");
+
+  const getImage = () => takeScreenShot(ref.current);
+
+  const download = (image, { name = "img", extension = "jpg" } = {}) => {
+    const a = document.createElement("a");
+    a.href = image;
+    a.download = createFileName(extension, name);
+    a.click();
+  };
+
+  const downloadScreenshot = () => takeScreenShot(ref.current).then(download);
+
   return (
     <div>
       <CanvasInputs
@@ -41,13 +55,18 @@ function Canvas() {
         setColor={setColor}
         setPixelCount={setPixelCount}
       />
+      <button onClick={getImage}>Save</button>
+      <button onClick={downloadScreenshot}>Download</button>
+      <button onClick={handleErase}>Erase</button>
       <div
         className={dimensions}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
+        ref={ref}
       >
         <Grid tiles={tiles} isMouseDown={isMouseDown} color={color} />
       </div>
+      <br />
     </div>
   );
 }
