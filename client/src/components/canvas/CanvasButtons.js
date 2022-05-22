@@ -12,6 +12,7 @@ function CanvasButtons({
     <div>
       <button onClick={toggleEightByEight}>8x8 Grid</button>
       <button onClick={toggleSixteenBySixteen}>16x16 Grid</button>
+      <button>Create another frame</button>
       <button onClick={getImage}>Save</button>
       <button onClick={downloadScreenshot}>Download</button>
       <button onClick={handleErase}>Erase</button>
