@@ -5,3 +5,11 @@
   grid-row-gap: 0;
   grid-template-columns: auto auto auto auto auto auto auto auto;
 }
+
+.sixteenbysixteen-container {
+  display: grid;
+  width: 320px;
+  height: 160px;
+  grid-row-gap: 0;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+}

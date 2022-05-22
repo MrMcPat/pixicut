@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import "./Tile.css";
 
-function Tile({ isMouseDown }) {
-  const [color, setColor] = useState("");
+function Tile({ isMouseDown, color }) {
+  const [background, setBackground] = useState("");
 
-  const handleMouseMove = () => isMouseDown && setColor("black");
-  const handleClick = () => setColor("black");
+  const handleMouseMove = () => isMouseDown && setBackground(color);
+  const handleClick = () => setBackground(color);
 
   return (
     <div
       className="tile"
-      style={{ background: color }}
+      style={{ background: background }}
       onMouseMove={handleMouseMove}
       onClick={handleClick}
     ></div>
