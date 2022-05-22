@@ -1,16 +1,6 @@
 import React from "react";
 
-function CanvasInputs({
-  name,
-  setName,
-  frames,
-  setFrames,
-  color,
-  setColor,
-  setPixelCount,
-}) {
-  const toggleEightByEight = () => setPixelCount(64);
-  const toggleSixteenBySixteen = () => setPixelCount(256);
+function CanvasInputs({ name, setName, frames, setFrames, color, setColor }) {
   return (
     <div>
       <label>Name of drawing:</label>
@@ -31,9 +21,6 @@ function CanvasInputs({
         value={color}
         onChange={(e) => setColor(e.target.value)}
       />
-      <br />
-      <button onClick={toggleEightByEight}>8x8 Grid</button>
-      <button onClick={toggleSixteenBySixteen}>16x16 Grid</button>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createRef } from "react";
 import "./Canvas.css";
 import CanvasInputs from "./CanvasInputs";
+import CanvasButtons from "./CanvasButtons";
 import Grid from "./Grid";
 import { useScreenshot, createFileName } from "use-react-screenshot";
 
@@ -62,11 +63,14 @@ function Canvas() {
         setFrames={setFrames}
         color={color}
         setColor={setColor}
-        setPixelCount={setPixelCount}
       />
-      <button onClick={getImage}>Save</button>
-      <button onClick={downloadScreenshot}>Download</button>
-      <button onClick={handleErase}>Erase</button>
+      <CanvasButtons
+        setPixelCount={setPixelCount}
+        getImage={getImage}
+        downloadScreenshot={downloadScreenshot}
+        handleErase={handleErase}
+      />
+
       <div
         className={dimensions}
         onMouseDown={handleMouseDown}
