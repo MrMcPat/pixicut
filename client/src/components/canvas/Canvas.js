@@ -6,7 +6,8 @@ import { useScreenshot, createFileName } from "use-react-screenshot";
 
 function Canvas() {
   const [name, setName] = useState("");
-  const [frames, setFrames] = useState("");
+  const [frames, setFrames] = useState(1);
+  const [frameCount, setFrameCount] = useState([]);
   const [color, setColor] = useState("#000000");
   const [pixelCount, setPixelCount] = useState(64);
   const [tiles, setTiles] = useState([]);
@@ -27,6 +28,14 @@ function Canvas() {
       setDimensions("sixteenbysixteen-container");
     }
   }, [pixelCount]);
+
+  useEffect(() => {
+    let array = [];
+    for (let i = 0; i < frames; i++) {
+      array.push(i);
+    }
+    setFrameCount(array);
+  }, [frames]);
 
   const handleMouseDown = () => setIsMouseDown(true);
   const handleMouseUp = () => setIsMouseDown(false);
