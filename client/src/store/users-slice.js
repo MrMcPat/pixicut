@@ -5,6 +5,7 @@ const usersSlice = createSlice({
   initialState: {
     users: [],
     drawings: [],
+    frames: [],
     comments: [],
     follows: [],
   },
@@ -12,6 +13,7 @@ const usersSlice = createSlice({
     getUsers(state, action) {
       state.users = action.payload.users;
       state.drawings = action.payload.drawings;
+      state.frames = action.payload.frames;
       state.comments = action.payload.comments;
       state.follows = action.payload.follows;
     },

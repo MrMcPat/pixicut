@@ -1,7 +1,7 @@
 import { usersActions } from "./users-slice";
 import axios from "axios";
 
-let endpoints = ["/users", "/drawings", "/comments", "/follows"];
+let endpoints = ["/users", "/drawings", "/frames", "/comments", "/follows"];
 
 export function fetchUsersData() {
   return async function (dispatch) {
@@ -17,8 +17,9 @@ export function fetchUsersData() {
         usersActions.getUsers({
           users: usersData[0].data,
           drawings: usersData[1].data,
-          comments: usersData[2].data,
-          follows: usersData[3].data,
+          frames: usersData[2].data,
+          comments: usersData[3].data,
+          follows: usersData[4].data,
         })
       );
     } catch (error) {

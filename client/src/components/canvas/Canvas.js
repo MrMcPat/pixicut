@@ -86,9 +86,9 @@ function Canvas() {
         <Grid tiles={tiles} isMouseDown={isMouseDown} color={color} />
       </div>
       <br />
-      <h3>Preview</h3>
       {image && (
         <>
+          <h3>Preview</h3>
           <img src={image} style={{ width: "325px" }} />
           <button onClick={handleFrames}>Save frame</button>
         </>
