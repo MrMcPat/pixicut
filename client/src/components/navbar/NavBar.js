@@ -28,7 +28,7 @@ function NavBar({ self }) {
           <div>
             {self ? (
               <>
-                <NavLink to="/canvas">Create Pixel Art</NavLink>
+                <NavLink to="/createdrawing">Create Pixel Art</NavLink>
                 <button onClick={handleLogoutClick}>Logout</button>
               </>
             ) : (

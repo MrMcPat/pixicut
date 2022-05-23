@@ -8,7 +8,7 @@ class DrawingsController < ApplicationController
     end
 
     def create
-        render json: Drawing.create(drawing_params), status: :created
+        render json: Drawing.create!(drawing_params), status: :created
     end
 
     def update
@@ -25,6 +25,6 @@ class DrawingsController < ApplicationController
     private
 
     def drawing_params
-        params.permit(:user_id, :name, :frame_count, :is_ready, :like_count, :user_liked)
+        params.permit(:user_id, :name, :dimensions, :frame_count, :is_ready, :like_count, :user_liked)
     end
 end

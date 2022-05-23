@@ -1,13 +1,11 @@
 import React, { useState, useEffect, createRef } from "react";
 import "./Canvas.css";
-import CanvasInputs from "./CanvasInputs";
 import CanvasButtons from "./CanvasButtons";
 import Grid from "./Grid";
 import { useScreenshot, createFileName } from "use-react-screenshot";
+import { useParams } from "react-router-dom";
 
 function Canvas() {
-  const [name, setName] = useState("");
-  const [frames, setFrames] = useState(1);
   const [color, setColor] = useState("#000000");
   const [pixelCount, setPixelCount] = useState(64);
   const [tiles, setTiles] = useState([]);
@@ -15,6 +13,7 @@ function Canvas() {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const ref = createRef(null);
   const [image, takeScreenShot] = useScreenshot();
+  const { id } = useParams();
 
   useEffect(() => {
     let array = [];
@@ -47,16 +46,13 @@ function Canvas() {
 
   return (
     <div>
-      <CanvasInputs
-        name={name}
-        setName={setName}
-        frames={frames}
-        setFrames={setFrames}
-        color={color}
-        setColor={setColor}
+      <label>Choose a color</label>
+      <input
+        type="color"
+        value={color}
+        onChange={(e) => setColor(e.target.value)}
       />
       <CanvasButtons
-        setPixelCount={setPixelCount}
         getImage={getImage}
         downloadScreenshot={downloadScreenshot}
         handleErase={handleErase}

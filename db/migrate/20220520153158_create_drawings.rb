@@ -3,6 +3,7 @@ class CreateDrawings < ActiveRecord::Migration[6.1]
     create_table :drawings do |t|
       t.integer :user_id, null: false, foreign_key: true
       t.string :name
+      t.string :dimensions
       t.integer :frame_count
       t.boolean :is_ready
       t.integer :like_count

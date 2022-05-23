@@ -8,7 +8,7 @@ class FramesController < ApplicationController
     end
 
     def create
-        render json: Frame.create(frame_params), status: :created
+        render json: Frame.create!(frame_params), status: :created
     end
 
     def update

@@ -8,6 +8,7 @@ import LandingPage from "./landingpage/LandingPage";
 import Login from "./authentication/Login";
 import Signup from "./authentication/Signup";
 import Homepage from "./homepage/Homepage";
+import CanvasInputs from "./canvas/CanvasInputs";
 import Canvas from "./canvas/Canvas";
 
 function App() {
@@ -29,7 +30,8 @@ function App() {
         )}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/canvas" element={<Canvas />} />
+        <Route path="/createdrawing" element={<CanvasInputs />} />
+        <Route path="/createdrawing/:id" element={<Canvas />} />
       </Routes>
     </div>
   );
