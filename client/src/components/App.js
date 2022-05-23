@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSelfData } from "../store/self-actions";
+import { fetchUsersData } from "../store/users-actions";
 
 import NavBar from "./navbar/NavBar";
 import LandingPage from "./landingpage/LandingPage";
@@ -17,6 +18,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchSelfData());
+    dispatch(fetchUsersData());
   }, [dispatch]);
 
   return (

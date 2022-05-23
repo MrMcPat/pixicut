@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createRef } from "react";
 import "./Canvas.css";
+import { useSelector } from "react-redux";
 import CanvasButtons from "./CanvasButtons";
 import Grid from "./Grid";
 import { useScreenshot, createFileName } from "use-react-screenshot";
@@ -7,26 +8,37 @@ import { useParams } from "react-router-dom";
 
 function Canvas() {
   const [color, setColor] = useState("#000000");
-  const [pixelCount, setPixelCount] = useState(64);
   const [tiles, setTiles] = useState([]);
-  const [dimensions, setDimensions] = useState("eightbyeight-container");
+  const [dimensions, setDimensions] = useState("");
   const [isMouseDown, setIsMouseDown] = useState(false);
-  const ref = createRef(null);
   const [image, takeScreenShot] = useScreenshot();
+  const ref = createRef(null);
+  const drawings = useSelector((state) => state.users.drawings);
+
   const { id } = useParams();
+  const drawing = drawings.find((drawing) => drawing.id === parseInt(id));
 
   useEffect(() => {
-    let array = [];
-    for (let i = 0; i < pixelCount; i++) {
-      array.push(i);
+    if (drawing) {
+      if (drawing.dimensions === "eightbyeight-container") {
+        let array = [];
+        for (let i = 0; i < 64; i++) {
+          array.push(i);
+        }
+        setTiles(array);
+        setDimensions(drawing.dimensions);
+      } else {
+        let array = [];
+        for (let i = 0; i < 256; i++) {
+          array.push(i);
+        }
+        setTiles(array);
+        setDimensions(drawing.dimensions);
+      }
     }
-    setTiles(array);
-    if (pixelCount === 64) {
-      setDimensions("eightbyeight-container");
-    } else {
-      setDimensions("sixteenbysixteen-container");
-    }
-  }, [pixelCount]);
+  }, [drawing]);
+
+  if (!drawing) return null;
 
   const handleMouseDown = () => setIsMouseDown(true);
   const handleMouseUp = () => setIsMouseDown(false);
@@ -57,7 +69,6 @@ function Canvas() {
         downloadScreenshot={downloadScreenshot}
         handleErase={handleErase}
       />
-
       <div
         className={dimensions}
         onMouseDown={handleMouseDown}
