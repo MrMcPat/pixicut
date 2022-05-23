@@ -25,6 +25,6 @@ class DrawingsController < ApplicationController
     private
 
     def drawing_params
-        params.permit(:user_id, :name, :frame_count, :like_count, :user_liked)
+        params.permit(:user_id, :name, :frame_count, :is_ready, :like_count, :user_liked)
     end
 end

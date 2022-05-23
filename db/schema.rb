@@ -26,7 +26,8 @@ ActiveRecord::Schema.define(version: 2022_05_20_153809) do
   create_table "drawings", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "name"
-    t.integer "frames"
+    t.integer "frame_count"
+    t.boolean "is_ready"
     t.integer "like_count"
     t.integer "user_liked", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
