@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createRef } from "react";
 import "./Canvas.css";
+import axios from "axios";
 import { useSelector } from "react-redux";
 import CanvasButtons from "./CanvasButtons";
 import Grid from "./Grid";
@@ -43,7 +44,7 @@ function Canvas() {
   const handleMouseDown = () => setIsMouseDown(true);
   const handleMouseUp = () => setIsMouseDown(false);
 
-  const handleErase = () => setColor("#ffffff");
+  const handleErase = () => setColor("");
 
   const getImage = () => takeScreenShot(ref.current);
 
@@ -55,6 +56,13 @@ function Canvas() {
   };
 
   const downloadScreenshot = () => takeScreenShot(ref.current).then(download);
+
+  function handleFrames() {
+    axios.post("/frames", {
+      drawing_id: parseInt(id),
+      image_url: image,
+    });
+  }
 
   return (
     <div>
@@ -78,6 +86,13 @@ function Canvas() {
         <Grid tiles={tiles} isMouseDown={isMouseDown} color={color} />
       </div>
       <br />
+      <h3>Preview</h3>
+      {image && (
+        <>
+          <img src={image} style={{ width: "325px" }} />
+          <button onClick={handleFrames}>Save frame</button>
+        </>
+      )}
     </div>
   );
 }

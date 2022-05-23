@@ -1,3 +1,3 @@
 class FrameSerializer < ActiveModel::Serializer
-  attributes :id, :drawings_id, :image_url
+  attributes :id, :drawing_id, :image_url
 end
