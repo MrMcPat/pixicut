@@ -1,45 +1,44 @@
 import React, { useState, useEffect, createRef } from "react";
 import "./Canvas.css";
 import axios from "axios";
-import { useSelector } from "react-redux";
 import CanvasButtons from "./CanvasButtons";
 import Grid from "./Grid";
 import { useScreenshot, createFileName } from "use-react-screenshot";
 import { useParams } from "react-router-dom";
 
 function Canvas() {
+  const [drawing, setDrawing] = useState([]);
   const [color, setColor] = useState("#000000");
   const [tiles, setTiles] = useState([]);
   const [dimensions, setDimensions] = useState("");
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [image, takeScreenShot] = useScreenshot();
   const ref = createRef(null);
-  const drawings = useSelector((state) => state.users.drawings);
 
   const { id } = useParams();
-  const drawing = drawings.find((drawing) => drawing.id === parseInt(id));
 
   useEffect(() => {
-    if (drawing) {
-      if (drawing.dimensions === "eightbyeight-container") {
+    async function handleFetch() {
+      const drawingData = await axios.get(`/drawings/${parseInt(id)}`);
+      setDrawing(drawingData.data);
+      if (drawingData.data.dimensions === "eightbyeight-container") {
         let array = [];
         for (let i = 0; i < 64; i++) {
           array.push(i);
         }
         setTiles(array);
-        setDimensions(drawing.dimensions);
+        setDimensions(drawingData.data.dimensions);
       } else {
         let array = [];
         for (let i = 0; i < 256; i++) {
           array.push(i);
         }
         setTiles(array);
-        setDimensions(drawing.dimensions);
+        setDimensions(drawingData.data.dimensions);
       }
     }
-  }, [drawing]);
-
-  if (!drawing) return null;
+    handleFetch();
+  }, []);
 
   const handleMouseDown = () => setIsMouseDown(true);
   const handleMouseUp = () => setIsMouseDown(false);
