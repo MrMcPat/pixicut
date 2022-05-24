@@ -5,6 +5,7 @@ import CanvasButtons from "./CanvasButtons";
 import Grid from "./Grid";
 import { useScreenshot, createFileName } from "use-react-screenshot";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Canvas() {
   const [drawing, setDrawing] = useState([]);
@@ -14,13 +15,14 @@ function Canvas() {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [image, takeScreenShot] = useScreenshot();
   const ref = createRef(null);
-
   const { id } = useParams();
+  const frames = useSelector((state) => state.users.frames);
 
   useEffect(() => {
     async function handleFetch() {
       const drawingData = await axios.get(`/drawings/${parseInt(id)}`);
       setDrawing(drawingData.data);
+
       if (drawingData.data.dimensions === "eightbyeight-container") {
         let array = [];
         for (let i = 0; i < 64; i++) {
@@ -39,6 +41,8 @@ function Canvas() {
     }
     handleFetch();
   }, []);
+
+  console.log(frames.filter((frame) => frame.drawing_id === parseInt(id)));
 
   const handleMouseDown = () => setIsMouseDown(true);
   const handleMouseUp = () => setIsMouseDown(false);
