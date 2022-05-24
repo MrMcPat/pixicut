@@ -13,16 +13,18 @@ function Canvas() {
   const [tiles, setTiles] = useState([]);
   const [dimensions, setDimensions] = useState("");
   const [isMouseDown, setIsMouseDown] = useState(false);
+  const [counter, setCounter] = useState(0);
   const [image, takeScreenShot] = useScreenshot();
   const ref = createRef(null);
   const { id } = useParams();
   const frames = useSelector((state) => state.users.frames);
+  const [frameList, setFrameList] = useState([]);
 
   useEffect(() => {
     async function handleFetch() {
       const drawingData = await axios.get(`/drawings/${parseInt(id)}`);
       setDrawing(drawingData.data);
-
+      setFrameList(frames.filter((frame) => frame.drawing_id === parseInt(id)));
       if (drawingData.data.dimensions === "eightbyeight-container") {
         let array = [];
         for (let i = 0; i < 64; i++) {
@@ -40,9 +42,7 @@ function Canvas() {
       }
     }
     handleFetch();
-  }, []);
-
-  console.log(frames.filter((frame) => frame.drawing_id === parseInt(id)));
+  }, [frames]);
 
   const handleMouseDown = () => setIsMouseDown(true);
   const handleMouseUp = () => setIsMouseDown(false);
@@ -65,6 +65,15 @@ function Canvas() {
       drawing_id: parseInt(id),
       image_url: image,
     });
+    setCounter(counter + 1);
+    setFrameList([
+      ...frameList,
+      {
+        drawing_id: parseInt(id),
+        id: new Date(),
+        image_url: image,
+      },
+    ]);
   }
 
   return (
@@ -93,9 +102,24 @@ function Canvas() {
         <>
           <h3>Preview</h3>
           <img src={image} style={{ width: "325px" }} />
-          <button onClick={handleFrames}>Save frame</button>
+          <button
+            onClick={handleFrames}
+            disabled={drawing.frame_count === frameList.length ? true : false}
+          >
+            Save frame
+          </button>
         </>
       )}
+      <br />
+      <div>
+        {frameList.map((frame) => (
+          <img
+            src={frame.image_url}
+            style={{ width: "225px" }}
+            key={frame.id}
+          />
+        ))}
+      </div>
     </div>
   );
 }
