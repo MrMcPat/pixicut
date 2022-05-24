@@ -101,7 +101,7 @@ function Canvas() {
       {image && (
         <>
           <h3>Preview</h3>
-          <img src={image} style={{ width: "325px" }} />
+          <img src={image} style={{ width: "325px" }} alt="preview" />
           <button
             onClick={handleFrames}
             disabled={drawing.frame_count === frameList.length ? true : false}
@@ -117,6 +117,7 @@ function Canvas() {
             src={frame.image_url}
             style={{ width: "225px" }}
             key={frame.id}
+            alt="frame"
           />
         ))}
       </div>
