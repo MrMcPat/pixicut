@@ -29,6 +29,8 @@ function NavBar({ self }) {
             {self ? (
               <>
                 <NavLink to="/createdrawing">Create Pixel Art</NavLink>
+                <NavLink to="/userdashboard">My Dashboard</NavLink>
+                <NavLink to="/usersettings">My Settings</NavLink>
                 <button onClick={handleLogoutClick}>Logout</button>
               </>
             ) : (
